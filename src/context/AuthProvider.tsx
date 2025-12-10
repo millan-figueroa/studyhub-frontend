@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
+import { apiClient } from "../clients/api";
 import type { User } from "../types";
-
 // note: user and token setters should also accept null or TS will complain on logout
 interface AuthContextType {
   user: User | null;
@@ -10,7 +10,7 @@ interface AuthContextType {
     email: string,
     password: string
   ) => Promise<void>;
-  // logIn: (username: string, password: string) => Promise<void>;
+  logIn: (username: string, password: string) => Promise<void>;
   // logOut: () => void;
   token: string | null;
   setToken: (token: string | null) => void;
@@ -73,9 +73,33 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  // >>> LOGIN USER <<<
+  async function logIn(email: string, password: string) {
+    try {
+      // calling my backend login route with the info the user typed
+      const res = await apiClient.post("/api/users/login", { email, password });
+
+      // just checking what the backend sends back
+      console.log(res.data);
+
+      // save token + user in state so the rest of the app knows im logged in
+      setToken(res.data.token);
+      setUser(res.data.user);
+
+      // also saving both to localstorage so login stays after a refresh
+      localStorage.setItem("token", JSON.stringify(res.data.token));
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+    } catch (error) {
+      // show error in console so i know what went wrong
+      console.error(error);
+    }
+  }
+
   // wrapping the whole app so it can use auth stuff anywhere
   return (
-    <AuthContext.Provider value={{ user, setUser, register, token, setToken }}>
+    <AuthContext.Provider
+      value={{ user, setUser, register, logIn, token, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );
