@@ -7,82 +7,90 @@
 - [x] Clean starter files
 - [x] Install dependencies
   - [x] `react-router-dom`
-  - [ ] `axios` (or plan to use `fetch`)
-- [ ] Create folder structure
-  - [ ] `/src/pages`
-  - [ ] `/src/components`
-  - [ ] `/src/context`
-  - [ ] `/src/api` (optional helper functions)
-- [ ] Add `.env` for frontend
-  - [ ] `VITE_API_BASE_URL="https://<your-backend-on-render>/api"`
+  - [x] `axios` (or plan to use `fetch`)
+- [x] Create folder structure
+  - [x] `/src/clients` (`api.ts` HTTP client)
+  - [x] `/src/components` (`Navbar.tsx`)
+  - [x] `/src/context` (`AuthProvider.tsx`)
+  - [x] `/src/pages` (`AuthPage.tsx`, `HomePage.tsx`, `ProjectsPage.tsx`, `ProjectDetailsPage.tsx`)
+  - [x] `/src/types` (`index.ts` for shared types)
+- [x] Ensure entry files
+  - [x] `/src/App.tsx`
+  - [x] `/src/main.tsx`
+- [x] Add `.env` for frontend
+  - [x] `VITE_API_BASE_URL="https://<your-backend-on-render>/api"`
 
 ---
 
 ## 9. Frontend – Auth Flow
 
-- [ ] Create `AuthContext` in `/src/context/AuthContext.jsx`
-  - [ ] Store `user` and `token`
-  - [ ] Load from `localStorage` on startup
-  - [ ] Provide `login`, `logout`, (and maybe `register`) functions
-- [ ] Set up routing (`react-router-dom`)
-  - [ ] `/login`
-  - [ ] `/register`
-  - [ ] `/dashboard`
-  - [ ] `/courses/:moduleId`
+- [x] Create `AuthProvider` in `/src/context/AuthProvider.tsx`
+  - [ ] Store `user` and `token` in state
+  - [ ] Load `user` and `token` from `localStorage` on startup
+  - [ ] Provide `login`, `logout`, and optional `register` helpers via context
+- [ ] Wrap app in `AuthProvider` in `main.tsx`
+- [ ] Define auth-related types in `/src/types/index.ts` (e.g., `User`, `AuthResponse`)
+- [ ] Set up routing in `App.tsx` (`react-router-dom`)
+  - [ ] `/` → `HomePage`
+  - [ ] `/auth` (or `/login`) → `AuthPage`
+  - [ ] `/modules` → `ProjectsPage`
+  - [ ] `/modules/:moduleId` → `ProjectDetailsPage`
 - [ ] Implement protected route logic
-  - [ ] Redirect to `/login` if no token for protected pages
-- [ ] Login page
-  - [ ] Form for email/password
-  - [ ] Call `POST /api/auth/login`
-  - [ ] Save token + user to context and `localStorage`
-  - [ ] Redirect to `/dashboard`
-- [ ] Register page
-  - [ ] Form for name/email/password
-  - [ ] Call `POST /api/auth/register`
-  - [ ] Either auto-login or redirect to `/login`
+  - [ ] Create a `RequireAuth`/`PrivateRoute` wrapper component (in `/src/components`)
+  - [ ] Redirect to `/auth` if no token for protected pages (`/modules`, `/modules/:moduleId`)
+- [ ] Auth UI (`AuthPage.tsx`)
+  - [ ] Login form (email/password)
+    - [ ] Call `POST /api/auth/login` via `api.ts`
+    - [ ] Save token + user to context and `localStorage`
+    - [ ] Redirect to `/modules` on success
+  - [ ] Register form (name/email/password) or tab
+    - [ ] Call `POST /api/auth/register`
+    - [ ] Either auto-login or redirect to login view
 
 ---
 
 ## 10. Frontend – Dashboard (modules)
 
-- [ ] Dashboard page (`/dashboard`)
-  - [ ] On mount, fetch `GET /api/modules` with `Authorization` header
-  - [ ] Display list of modules
-  - [ ] Link each module to `/modules/:moduleId`
-- [ ] Add new module form
+- [ ] Modules dashboard page (`ProjectsPage.tsx` at route `/modules`)
+  - [ ] On mount, fetch `GET /api/modules` with `Authorization` header using `api.ts`
+  - [ ] Display list of modules owned by the logged-in user
+  - [ ] Link each module to `/modules/:moduleId` (`ProjectDetailsPage.tsx`)
+- [ ] Add new module form (component in `/src/components`, used in `ProjectsPage.tsx`)
   - [ ] Call `POST /api/modules`
-  - [ ] Refresh list on success
-- [ ] Optional:
-  - [ ] Edit module name/description
-  - [ ] Delete module (call `DELETE /api/modules/:id`)
+  - [ ] Refresh module list on success
+- [ ] Optional module actions
+  - [ ] Edit module name/description (`PUT /api/modules/:id`)
+  - [ ] Delete module (`DELETE /api/modules/:id`) and remove from UI
 
 ---
 
-## 11. Frontend – Course Detail & Tasks
+## 11. Frontend – Module Detail & Tasks
 
-- [ ] Course detail page (`/modules/:moduleId`)
+- [ ] Module detail page (`ProjectDetailsPage.tsx` at route `/modules/:moduleId`)
   - [ ] Fetch module info (`GET /api/modules/:id`)
-  - [ ] Fetch tasks (`GET /api/modules/:moduleId/tasks`)
-- [ ] Display tasks
-  - [ ] Show title, description, status
+  - [ ] Fetch tasks for module (`GET /api/modules/:moduleId/tasks`)
+- [ ] Display tasks list
+  - [ ] Show title, description, status for each task
   - [ ] Status dropdown or buttons
-    - [ ] On change, call `PUT /api/tasks/:taskId`
-- [ ] Add new task form
+    - [ ] On change, call `PUT /api/tasks/:taskId` to update status
+- [ ] Add new task form (component in `/src/components`, used in `ProjectDetailsPage.tsx`)
   - [ ] Call `POST /api/modules/:moduleId/tasks`
-  - [ ] Refresh list
+  - [ ] Refresh tasks list on success
 - [ ] Delete task
   - [ ] Button to call `DELETE /api/tasks/:taskId`
-  - [ ] Remove from UI
+  - [ ] Remove task from UI without full page reload
 
 ---
 
 ## 12. Frontend – UX & Styling
 
-- [ ] Add loading states for API calls
-- [ ] Add error messages for failed API calls
+- [ ] Add loading states for API calls (modules, tasks, auth)
+- [ ] Add error handling and messages for failed API calls
 - [ ] Basic layout with header/nav
+  - [ ] Use `Navbar.tsx` to show app name + nav links (e.g., Modules, Logout)
 - [ ] Responsive design for mobile/tablet
-- [ ] Clean up unused components and code
+  - [ ] Ensure pages use layout components and CSS in `index.css`
+- [ ] Clean up unused components, assets, and code
 
 ---
 
@@ -90,12 +98,12 @@
 
 - [ ] Deploy backend to Render (Web Service)
   - [ ] Environment variables set (MONGO_URI, JWT_SECRET, PORT)
-- [ ] Deploy frontend to Render (Static Site)
-  - [ ] `VITE_API_BASE_URL` pointing to backend URL
+- [ ] Deploy frontend (Static Site – Render or Netlify)
+  - [ ] `VITE_API_BASE_URL` pointing to deployed backend URL
 - [ ] From live frontend:
   - [ ] Register & login user
   - [ ] Create a module
-  - [ ] Add tasks
+  - [ ] Add tasks to a module
   - [ ] Update task status
   - [ ] Delete tasks/modules
 - [ ] Final `README.md` at root or in each repo
