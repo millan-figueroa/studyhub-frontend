@@ -11,7 +11,7 @@ interface AuthContextType {
     password: string
   ) => Promise<void>;
   logIn: (username: string, password: string) => Promise<void>;
-  // logOut: () => void;
+  logOut: () => void;
   token: string | null;
   setToken: (token: string | null) => void;
 }
@@ -95,10 +95,20 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  // >>> LOGOUT USER <<<
+  function logOut() {
+    // clear the user + token from state so app knows im logged out
+    setUser(null);
+    setToken(null);
+
+    // also remove from localstorage so it doesnt auto login again
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  }
   // wrapping the whole app so it can use auth stuff anywhere
   return (
     <AuthContext.Provider
-      value={{ user, setUser, register, logIn, token, setToken }}
+      value={{ user, setUser, register, logIn, logOut, token, setToken }}
     >
       {children}
     </AuthContext.Provider>
