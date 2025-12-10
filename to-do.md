@@ -28,14 +28,14 @@
   - [x] Store `user` and `token` in state
   - [x] Load `user` and `token` from `localStorage` on startup
   - [x] Provide `login`, `logout`, and optional `register` helpers via context
-- [ ] Wrap app in `AuthProvider` in `main.tsx`
-- [ ] Define auth-related types in `/src/types/index.ts` (e.g., `User`, `AuthResponse`)
-- [ ] Set up routing in `App.tsx` (`react-router-dom`)
-  - [ ] `/` → `HomePage`
-  - [ ] `/auth` (or `/login`) → `AuthPage`
-  - [ ] `/modules` → `ProjectsPage`
-  - [ ] `/modules/:moduleId` → `ProjectDetailsPage`
-- [ ] Implement protected route logic
+- [x] Wrap app in `AuthProvider` in `main.tsx`
+- [x] Define auth-related types in `/src/types/index.ts` (e.g., `User`, `AuthResponse`)
+- [x] Set up routing in `App.tsx` (`react-router-dom`)
+  - [x] `/` → `HomePage`
+  - [x] `/auth` (or `/login`) → `AuthPage`
+  - [x] `/modules` → `ProjectsPage`
+  - [x] `/modules/:moduleId` → `ProjectDetailsPage`
+- [ ] Implement protected route logic \*\*\* revisit
   - [ ] Create a `RequireAuth`/`PrivateRoute` wrapper component (in `/src/components`)
   - [ ] Redirect to `/auth` if no token for protected pages (`/modules`, `/modules/:moduleId`)
 - [ ] Auth UI (`AuthPage.tsx`)

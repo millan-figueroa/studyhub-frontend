@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
   // storing value user types in the username and email input
@@ -13,21 +15,28 @@ function AuthPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // grabbing auth functions from context
+  const auth = useContext(AuthContext);
+
+  // redirect user after login/register
+  const navigate = useNavigate();
+
   // >>> REGISTER USER <<<
   const handleRegister = async () => {
     try {
-      // clearing out any old error before i try to register again
+      // clearing out any old error
       setError("");
       // turn loading on so button is disabled and user sees something is happening
       setLoading(true);
-      // this is where i will send the register info to my backend api
-      // i havent plugged it in yet but the call will go here
+
+      // send the register info to backend api
+      await auth?.register(username, email, password);
+      navigate("/modules");
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      // printing error in console so i can figure out what went wrong
+      // printing error in console
       console.error(error.message);
-      // show the error message on screen for user instead of nothing
       setError(error.message);
     } finally {
       // loading off whether it worked or failed
@@ -38,21 +47,21 @@ function AuthPage() {
   // >>> LOGIN USER <<<
   const handleLogin = async () => {
     try {
-      // clear any old error message so its not stuck onscreen
+      // clear any old error message
       setError("");
-      // turning on loading so i can disable button and show spinner so user knows something is happening
       setLoading(true);
+
       // api call here to login the user
-      // i dont know the exact api code yet but i will call my backend here
+      await auth?.logIn(email, password);
+      navigate("/modules");
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      // log error to dev tools so i can see exact issue
+      // log error to dev tools
       console.error(error.message);
-      // show the same error to user on screen so they know what happend
       setError(error.message);
     } finally {
-      // turn off loading no matter what so button is clickable again
+      // turn off loading so button is clickable again
       setLoading(false);
     }
   };
