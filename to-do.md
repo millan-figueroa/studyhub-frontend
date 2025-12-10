@@ -25,9 +25,9 @@
 ## 9. Frontend – Auth Flow
 
 - [x] Create `AuthProvider` in `/src/context/AuthProvider.tsx`
-  - [ ] Store `user` and `token` in state
-  - [ ] Load `user` and `token` from `localStorage` on startup
-  - [ ] Provide `login`, `logout`, and optional `register` helpers via context
+  - [x] Store `user` and `token` in state
+  - [x] Load `user` and `token` from `localStorage` on startup
+  - [x] Provide `login`, `logout`, and optional `register` helpers via context
 - [ ] Wrap app in `AuthProvider` in `main.tsx`
 - [ ] Define auth-related types in `/src/types/index.ts` (e.g., `User`, `AuthResponse`)
 - [ ] Set up routing in `App.tsx` (`react-router-dom`)
