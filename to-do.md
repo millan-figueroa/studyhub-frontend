@@ -38,14 +38,14 @@
 - [ ] Implement protected route logic \*\*\* revisit
   - [ ] Create a `RequireAuth`/`PrivateRoute` wrapper component (in `/src/components`)
   - [ ] Redirect to `/auth` if no token for protected pages (`/modules`, `/modules/:moduleId`)
-- [ ] Auth UI (`AuthPage.tsx`)
-  - [ ] Login form (email/password)
-    - [ ] Call `POST /api/auth/login` via `api.ts`
-    - [ ] Save token + user to context and `localStorage`
-    - [ ] Redirect to `/modules` on success
+- [x] Auth UI (`AuthPage.tsx`)
+  - [x] Login form (email/password)
+    - [x] Call `POST /api/auth/login` via `api.ts`
+    - [x] Save token + user to context and `localStorage`
+    - [x] Redirect to `/modules` on success
   - [ ] Register form (name/email/password) or tab
-    - [ ] Call `POST /api/auth/register`
-    - [ ] Either auto-login or redirect to login view
+    - [x] Call `POST /api/auth/register`
+    - [x] Either auto-login or redirect to login view
 
 ---
 

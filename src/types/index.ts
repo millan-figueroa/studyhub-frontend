@@ -4,3 +4,10 @@ export interface User {
     email: string;
     githubId?: string;
 }
+
+export interface Module {
+    _id: string;
+    name: string;
+    description: string;
+    user: string; // owner id
+}
