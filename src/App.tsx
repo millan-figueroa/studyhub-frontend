@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import ModuleDetailsPage from "./pages/ModuleDetailsPage"; // single module page
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
+import AnkiLibrary from "./pages/AnkiLibrary";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
 
         {/* user/ account info */}
         <Route path="/profile" element={<ProfilePage />} />
+
+        {/* Anki decks library */}
+        <Route path="/profile" element={<AnkiLibrary />} />
 
         {/* module details page with tasks inside it */}
         <Route path="/modules/:moduleId" element={<ModuleDetailsPage />} />

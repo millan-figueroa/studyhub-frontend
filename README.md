@@ -199,3 +199,7 @@ CORS errors
 
 - Better mobile layout
 - Optional swipe gestures for marking tasks complete
+
+## Anki Deck Library
+
+The Anki Deck Library lets users upload and store their own flashcard decks directly in the app. It creates a shared space where learners can organize their study materials and access custom decks anytime.
