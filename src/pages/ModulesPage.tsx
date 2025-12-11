@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import type { Module } from "../types";
 
-function ProjectsPage() {
+function ModulesPage() {
   // this will hold all the modules from the backend
-  const [projects, setProjects] = useState<Module[]>([]);
+  const [modules, setModules] = useState<Module[]>([]);
   // if something goes wrong save the error here
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,14 +14,14 @@ function ProjectsPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  // this runs one time when the page loads grabs all modules
   useEffect(() => {
-    // this runs one time when the page loads grabs all modules
-    async function fetchProjects() {
+    async function fetchModules() {
       try {
         setLoading(true); // show loading while waiting for backend
-        const res = await apiClient.get("/api/projects"); // call backend route
+        const res = await apiClient.get("/api/modules"); // call backend route
         console.log(res.data); // checking what comes back
-        setProjects(res.data); // save modules in state to show them
+        setModules(res.data); // save modules in state to show them
       } catch (error: any) {
         console.log(error); // see what went wrong
         setError(error.message); // show error to user
@@ -29,18 +29,16 @@ function ProjectsPage() {
         setLoading(false); // turn loading off no matter what
       }
     }
-
-    fetchProjects();
+    fetchModules();
   }, []);
 
-  // placeholder for now
   async function handleSubmit(e: any) {
     e.preventDefault();
 
     try {
       setLoading(true); // waiting on backend
-      const res = await apiClient.post("/api/projects", { name, description }); // create new module
-      setProjects((prev) => [...prev, res.data]); // add new module to list
+      const res = await apiClient.post("/api/modules", { name, description }); // create new module
+      setModules((prev) => [...prev, res.data]); // add new module to list
     } catch (error: any) {
       console.error(error); // see what went wrong
       setError(error.message); // show error to user
@@ -81,13 +79,13 @@ function ProjectsPage() {
 
       {/* list out all the modules */}
       <div>
-        {projects &&
-          projects.map((project) => (
-            <div key={project._id}>
-              <div>{project.name}</div>
-              <div>{project.description}</div>
+        {modules &&
+          modules.map((module) => (
+            <div key={module._id}>
+              <div>{module.name}</div>
+              <div>{module.description}</div>
               {/* link to the details page for this module */}
-              <Link to={`/modules/${project._id}`}>See Module</Link>
+              <Link to={`/modules/${module._id}`}>See Module</Link>
             </div>
           ))}
       </div>
@@ -95,4 +93,4 @@ function ProjectsPage() {
   );
 }
 
-export default ProjectsPage;
+export default ModulesPage;
