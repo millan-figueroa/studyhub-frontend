@@ -86,6 +86,20 @@ function ModulesPage() {
     }
   }
 
+  // >>>> DELETE MODULE <<<<
+  async function deleteModule(id: string) {
+    try {
+      setLoading(true); // waiting on backend
+      await apiClient.delete(`/api/modules/${id}`); // delete module in backend
+      setModules((prev) => prev.filter((m) => m._id !== id)); // remove from state
+    } catch (error: any) {
+      console.error(error); // see what went wrong
+      setError(error.message); // show error to user
+    } finally {
+      setLoading(false); // stop loading
+    }
+  }
+
   return (
     <div>
       <h1>Modules</h1>
@@ -159,6 +173,12 @@ function ModulesPage() {
                     }}
                   >
                     edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteModule(module._id)}
+                  >
+                    delete
                   </button>
                 </>
               )}
