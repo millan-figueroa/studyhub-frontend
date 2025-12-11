@@ -11,3 +11,10 @@ export interface Module {
     description: string;
     user: string; // owner id
 }
+
+export interface Task {
+    title: string;
+    description: string;
+    _id: string;
+    status: string;
+}

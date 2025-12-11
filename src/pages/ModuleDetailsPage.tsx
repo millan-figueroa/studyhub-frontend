@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import type { Module } from "../types";
+import type { Module, Task } from "../types";
 import { apiClient } from "../clients/api";
 import { useParams } from "react-router-dom";
 
 function ModuleDetailsPage() {
   // holds the module we fetch
   const [moduleData, setModuleData] = useState<Module | null>(null);
-  // loading + error states
+  // holds all tasks for this module
+  const [tasks, setTasks] = useState<Task[]>([]);
+  // loading and error states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const { moduleId } = useParams();
 
-  // gets module details + tasks when the page loads or when moduleId changes
+  // gets module details when page loads or moduleId changes
   useEffect(() => {
     async function fetchModuleDetails() {
       try {
@@ -31,16 +33,15 @@ function ModuleDetailsPage() {
     fetchModuleDetails();
   }, [moduleId]);
 
+  // gets tasks for this module
   useEffect(() => {
     async function fetchModuleTasks() {
       try {
-        // later we will set loading + error for tasks (separate state)
         const res = await apiClient.get(`/api/modules/${moduleId}/tasks`); // grab tasks for module
         console.log(res.data); // inspect response
-        // save tasks in state (we'll add tasks state soon)
+        setTasks(res.data); // save tasks in state
       } catch (error) {
         console.error(error); // see what went wrong
-        // later we will set task error state
       }
     }
 
@@ -61,6 +62,18 @@ function ModuleDetailsPage() {
         {/* name and description from the module */}
         <div>{moduleData?.name}</div>
         <div>{moduleData?.description}</div>
+      </div>
+
+      <h2>Tasks</h2>
+      {/* list all tasks for this module */}
+      <div>
+        {tasks.map((task) => (
+          <div key={task._id}>
+            <div>{task.title}</div>
+            <div>{task.description}</div>
+            <div>{task.status}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
