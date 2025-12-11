@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
 function HomePage() {
   const { user } = useContext(AuthContext) || {};
+  const navigate = useNavigate();
 
   // not logged in → landing page
   if (!user) {
@@ -17,21 +18,19 @@ function HomePage() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <Link
-              to="/auth"
-              state={{ mode: "login" }}
+            <button
               className="px-6 py-2 rounded-full bg-orange-400 text-slate-900 font-semibold hover:bg-orange-300 transition"
+              onClick={() => navigate("/auth?mode=login")}
             >
               login
-            </Link>
+            </button>
 
-            <Link
-              to="/auth"
-              state={{ mode: "register" }}
+            <button
               className="px-6 py-2 rounded-full border border-slate-500 text-slate-100 hover:bg-slate-700 transition"
+              onClick={() => navigate("/auth?mode=register")}
             >
               create account
-            </Link>
+            </button>
           </div>
         </div>
       </div>
