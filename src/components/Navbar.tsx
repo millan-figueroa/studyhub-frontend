@@ -7,9 +7,13 @@ export default function NavBar() {
   // if auth is null, show minimal navbar so app doesn't crash
   if (!auth) {
     return (
-      <nav>
-        <NavLink to="/">home</NavLink>
-        <NavLink to="/auth">signin / signup</NavLink>
+      <nav className="flex gap-4 p-3 border-b border-gray-400">
+        <NavLink className="hover:underline" to="/">
+          home
+        </NavLink>
+        <NavLink className="hover:underline" to="/auth">
+          signin / signup
+        </NavLink>
       </nav>
     );
   }
@@ -18,18 +22,29 @@ export default function NavBar() {
   const { user, logOut } = auth;
 
   return (
-    <nav>
-      <NavLink to="/">home</NavLink>
+    <nav className="flex gap-4 p-3 border-b border-gray-400">
+      <NavLink className="hover:underline" to="/">
+        home
+      </NavLink>
 
       {/* if user is not logged in show auth link */}
-      {!user && <NavLink to="/auth">signin / signup</NavLink>}
+      {!user && (
+        <NavLink className="hover:underline" to="/auth">
+          signin / signup
+        </NavLink>
+      )}
 
       {/* if logged in show modules link */}
-      {user && <NavLink to="/modules">modules</NavLink>}
+      {user && (
+        <NavLink className="hover:underline" to="/modules">
+          modules
+        </NavLink>
+      )}
 
       {/* logout button when logged in */}
       {user && (
         <NavLink
+          className="hover:underline"
           to="/"
           onClick={() => {
             logOut(); // clears user + token

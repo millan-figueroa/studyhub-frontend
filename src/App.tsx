@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ModulesPage from "./pages/ModulesPage"; // this is my modules dashboard
 import Navbar from "./components/Navbar";
@@ -8,8 +8,7 @@ import AuthPage from "./pages/AuthPage";
 function App() {
   return (
     // wrapper for the whole app layout
-    <>
-      {/* navbar shows on every page */}
+    <BrowserRouter>
       <Navbar />
 
       {/* all my routes go in here so user can switch pages without reloading */}
@@ -26,7 +25,7 @@ function App() {
         {/* login/register screen */}
         <Route path="/auth" element={<AuthPage />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 }
 
