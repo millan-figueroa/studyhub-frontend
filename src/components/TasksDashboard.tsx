@@ -135,41 +135,58 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
   if (loading) return <div>loading...</div>;
 
   return (
-    <div>
+    <div className="mt-8 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl">
       {/* header */}
       {tasks && (
-        <div>
-          <h1>tasks</h1>
-          <button onClick={openAddForm}>add task</button>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-xl font-semibold text-slate-100">tasks</h1>
+          <button
+            onClick={openAddForm}
+            className="inline-flex items-center px-4 py-1.5 rounded-full bg-orange-500 text-slate-900 text-sm font-semibold hover:bg-orange-400 transition"
+          >
+            add task
+          </button>
         </div>
       )}
 
       {/* add form */}
       {showAddForm && (
-        <TaskAddForm createTask={createTask} closeAddForm={closeAddForm} />
+        <div className="mb-4">
+          <TaskAddForm createTask={createTask} closeAddForm={closeAddForm} />
+        </div>
       )}
 
       {/* edit form */}
       {showEditForm && (
-        <TaskEditForm
-          updateTask={updateTask}
-          editName={editName}
-          editDescription={editDescription}
-          editStatus={editStatus}
-          editId={editId}
-          closeEditForm={closeEditForm}
-        />
+        <div className="mb-4">
+          <TaskEditForm
+            updateTask={updateTask}
+            editName={editName}
+            editDescription={editDescription}
+            editStatus={editStatus}
+            editId={editId}
+            closeEditForm={closeEditForm}
+          />
+        </div>
       )}
 
       {/* error message */}
-      {error && <div>{error}</div>}
+      {error && (
+        <div className="mb-3 text-sm text-red-400 bg-red-950/40 border border-red-500/40 rounded-md px-3 py-2">
+          {error}
+        </div>
+      )}
 
       {/* empty message */}
-      {tasks.length === 0 && <h2>no tasks</h2>}
+      {tasks.length === 0 && (
+        <h2 className="text-sm text-slate-400 italic">no tasks yet</h2>
+      )}
 
       {/* list of tasks */}
-      {tasks && (
-        <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
+      {tasks && tasks.length > 0 && (
+        <div className="mt-2">
+          <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
+        </div>
       )}
     </div>
   );
