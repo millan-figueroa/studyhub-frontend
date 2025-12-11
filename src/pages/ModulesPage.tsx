@@ -15,13 +15,13 @@ function ProjectsPage() {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    // this runs one time when the page loads so i can grab all my modules
+    // this runs one time when the page loads grabs all modules
     async function fetchProjects() {
       try {
-        setLoading(true); // show loading while i wait for backend
-        const res = await apiClient.get("/api/projects"); // call my backend route
-        console.log(res.data); // just checking what comes back
-        setProjects(res.data); // save modules in state so i can show them
+        setLoading(true); // show loading while waiting for backend
+        const res = await apiClient.get("/api/projects"); // call backend route
+        console.log(res.data); // checking what comes back
+        setProjects(res.data); // save modules in state to show them
       } catch (error: any) {
         console.log(error); // see what went wrong
         setError(error.message); // show error to user
@@ -33,9 +33,22 @@ function ProjectsPage() {
     fetchProjects();
   }, []);
 
-  // placeholder for now, we will add the real create function later
+  // placeholder for now
   async function handleSubmit(e: any) {
     e.preventDefault();
+
+    try {
+      setLoading(true); // waiting on backend
+      const res = await apiClient.post("/api/projects", { name, description }); // create new module
+      setProjects((prev) => [...prev, res.data]); // add new module to list
+    } catch (error: any) {
+      console.error(error); // see what went wrong
+      setError(error.message); // show error to user
+    } finally {
+      setLoading(false); // stop loading
+      setName(""); // clear form
+      setDescription(""); // clear form
+    }
   }
 
   return (
