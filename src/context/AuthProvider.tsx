@@ -64,6 +64,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
       console.log(res.data);
+
+      // save token so authenticated routes work (debugging 401)
+      localStorage.setItem("token", res.data.token);
     } catch (error: any) {
       console.error("register error:", error.response?.data || error.message);
     }
@@ -77,6 +80,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       // just checking what the backend sends back
       console.log(res.data);
+
+      // save token so authenticated routes work (debugging 401)
+      localStorage.setItem("token", res.data.token);
 
       // save token + user in state so the rest of the app knows im logged in
       setToken(res.data.token);
