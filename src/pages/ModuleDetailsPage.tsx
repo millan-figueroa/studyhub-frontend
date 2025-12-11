@@ -109,55 +109,96 @@ function ModuleDetailsPage() {
   if (error) return <div>error loading module</div>;
 
   return (
-    <div>
-      <h1>Module Details</h1>
+    <div className="min-h-[calc(100vh-64px)] bg-slate-900 px-4 py-10 text-slate-100">
+      <div className="max-w-3xl mx-auto space-y-10">
+        {/* module header */}
+        <div className="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 shadow-xl">
+          <h1 className="text-3xl font-bold mb-4 text-slate-300">
+            module details
+          </h1>
 
-      <div>
-        {/* name and description from the module */}
-        <div>{moduleData?.name}</div>
-        <div>{moduleData?.description}</div>
-      </div>
-
-      <h2>Tasks</h2>
-      <div>
-        {tasks.map((task) => (
-          <div key={task._id}>
-            <div>{task.title}</div>
-            <div>{task.description}</div>
-
-            {/* status dropdown for this task */}
-            <select
-              value={task.status}
-              onChange={(e) => updateTaskStatus(task._id, e.target.value)}
-            >
-              <option value="todo">todo</option>
-              <option value="in-progress">in-progress</option>
-              <option value="done">done</option>
-            </select>
-
-            <button onClick={() => deleteTask(task._id)}>delete</button>
+          <div className="space-y-2">
+            <div className="text-xl font-semibold">{moduleData?.title}</div>
+            <div className="text-slate-300 text-sm">
+              {moduleData?.description}
+            </div>
           </div>
-        ))}
+        </div>
+
+        {/* tasks section */}
+        <div className="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-6">
+          <h2 className="text-2xl font-semibold text-slate-300">tasks</h2>
+
+          <div className="space-y-4">
+            {tasks.map((task) => (
+              <div
+                key={task._id}
+                className="bg-slate-900/60 border border-slate-700 rounded-xl p-4 shadow-md"
+              >
+                <div className="font-semibold text-lg">{task.title}</div>
+                <div className="text-slate-300 text-sm mb-3">
+                  {task.description}
+                </div>
+
+                {/* status + delete row */}
+                <div className="flex items-center gap-4">
+                  <select
+                    value={task.status}
+                    onChange={(e) => updateTaskStatus(task._id, e.target.value)}
+                    className="bg-slate-900 border border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  >
+                    <option value="todo">to do</option>
+                    <option value="in-progress">in progress</option>
+                    <option value="done">done</option>
+                  </select>
+
+                  <button
+                    onClick={() => deleteTask(task._id)}
+                    className="px-4 py-1.5 rounded-full bg-red-500 text-slate-50 text-sm font-semibold hover:bg-red-400 transition"
+                  >
+                    delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* create task */}
+        <div className="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 shadow-xl">
+          <h2 className="text-2xl font-semibold text-slate-300 mb-4">
+            create task
+          </h2>
+
+          <form onSubmit={createTask} className="space-y-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-sm text-slate-300">Title:</label>
+              <input
+                type="text"
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+                className="bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-sm text-slate-300">Description:</label>
+              <input
+                type="text"
+                value={taskDescription}
+                onChange={(e) => setTaskDescription(e.target.value)}
+                className="bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              />
+            </div>
+
+            <input
+              type="submit"
+              value="Add Task"
+              className="mt-2 inline-flex items-center justify-center px-5 py-2 rounded-full bg-orange-500 text-slate-900 font-semibold hover:bg-orange-400 cursor-pointer transition"
+            />
+          </form>
+        </div>
       </div>
-
-      <h2>Create Task</h2>
-      <form onSubmit={createTask}>
-        <label>Title:</label>
-        <input
-          type="text"
-          value={taskTitle}
-          onChange={(e) => setTaskTitle(e.target.value)}
-        />
-
-        <label>Description:</label>
-        <input
-          type="text"
-          value={taskDescription}
-          onChange={(e) => setTaskDescription(e.target.value)}
-        />
-
-        <input type="submit" value="Add Task" />
-      </form>
     </div>
   );
 }

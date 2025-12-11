@@ -11,12 +11,12 @@ function ModulesPage() {
   const [loading, setLoading] = useState(false);
 
   // form inputs for adding a new module
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   // edit state for updating a module inline
   const [editingId, setEditingId] = useState("");
-  const [editName, setEditName] = useState("");
+  const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
 
   // this runs one time when the page loads grabs all modules
@@ -42,14 +42,17 @@ function ModulesPage() {
 
     try {
       setLoading(true); // waiting on backend
-      const res = await apiClient.post("/api/modules", { name, description }); // create new module
+      const res = await apiClient.post("/api/modules", {
+        title,
+        description,
+      }); // create new module
       setModules((prev) => [...prev, res.data]); // add new module to list
     } catch (error: any) {
       console.error(error); // see what went wrong
       setError(error.message); // show error to user
     } finally {
       setLoading(false); // stop loading
-      setName(""); // clear form
+      setTitle(""); // clear form
       setDescription(""); // clear form
     }
   }
@@ -61,7 +64,7 @@ function ModulesPage() {
     try {
       setLoading(true); // waiting on backend
       const res = await apiClient.put(`/api/modules/${editingId}`, {
-        name: editName,
+        title: editTitle,
         description: editDescription,
       }); // update module
 
@@ -69,14 +72,18 @@ function ModulesPage() {
       setModules((prev) =>
         prev.map((m) =>
           m._id === editingId
-            ? { ...m, name: res.data.name, description: res.data.description }
+            ? {
+                ...m,
+                title: res.data.title,
+                description: res.data.description,
+              }
             : m
         )
       );
 
       // clear edit state
       setEditingId("");
-      setEditName("");
+      setEditTitle("");
       setEditDescription("");
     } catch (error: any) {
       console.error(error); // see what went wrong
@@ -117,8 +124,8 @@ function ModulesPage() {
             <input
               type="text"
               name="module-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
             />
           </div>
@@ -170,8 +177,8 @@ function ModulesPage() {
                   >
                     <input
                       type="text"
-                      value={editName}
-                      onChange={(e) => setEditName(e.target.value)}
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
                       className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
                     />
                     <input
@@ -191,7 +198,7 @@ function ModulesPage() {
                         type="button"
                         onClick={() => {
                           setEditingId("");
-                          setEditName("");
+                          setEditTitle("");
                           setEditDescription("");
                         }}
                         className="px-4 py-1.5 rounded-full border border-slate-500 text-slate-100 text-sm hover:bg-slate-700 transition"
@@ -204,7 +211,7 @@ function ModulesPage() {
                   // view mode
                   <>
                     <div className="font-semibold text-lg mb-1">
-                      {module.name}
+                      {module.title}
                     </div>
                     <div className="text-sm text-slate-300 mb-3">
                       {module.description}
@@ -220,7 +227,7 @@ function ModulesPage() {
                         type="button"
                         onClick={() => {
                           setEditingId(module._id);
-                          setEditName(module.name);
+                          setEditTitle(module.title);
                           setEditDescription(module.description);
                         }}
                         className="px-4 py-1.5 rounded-full border border-slate-500 text-slate-100 text-sm hover:bg-slate-700 transition"

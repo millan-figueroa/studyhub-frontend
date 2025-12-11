@@ -7,7 +7,7 @@ export interface User {
 
 export interface Module {
     _id: string;
-    name: string;
+    title: string;
     description: string;
     user: string; // owner id
 }
