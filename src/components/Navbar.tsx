@@ -3,56 +3,60 @@ import { useAuth } from "../context/useAuth";
 
 export default function NavBar() {
   const auth = useAuth(); // may be null at first render
-
+  console.log("NAV AUTH:", auth);
   // if auth is null, show minimal navbar so app doesn't crash
   if (!auth) {
     return (
-      <nav className="flex gap-4 p-3 border-b border-gray-400">
-        <NavLink className="hover:underline" to="/">
-          home
-        </NavLink>
-        <NavLink className="hover:underline" to="/auth">
-          signin / signup
-        </NavLink>
+      <nav className="bg-slate-900 border-b border-slate-700 text-slate-100 px-6 py-4">
+        <div className="flex justify-center gap-10 text-sm font-medium">
+          <NavLink className="hover:text-orange-400 transition" to="/">
+            home
+          </NavLink>
+          <NavLink className="hover:text-orange-400 transition" to="/modules">
+            modules
+          </NavLink>
+        </div>
       </nav>
     );
   }
 
-  // grab current user and logout function
   const { user, logOut } = auth;
 
   return (
-    <nav className="flex gap-4 p-3 border-b border-gray-400">
-      <NavLink className="hover:underline" to="/">
-        home
-      </NavLink>
+    <nav className="bg-slate-900 border-b border-slate-700 text-slate-100 px-6 py-4">
+      <div className="flex justify-between items-center max-w-4xl mx-auto text-sm font-medium">
+        {/* left side */}
+        <div className="flex gap-10">
+          <NavLink className="hover:text-orange-400 transition" to="/">
+            home
+          </NavLink>
+          <NavLink className="hover:text-orange-400 transition" to="/profile">
+            profile
+          </NavLink>
 
-      {/* if user is not logged in show auth link */}
-      {!user && (
-        <NavLink className="hover:underline" to="/auth">
-          signin / signup
-        </NavLink>
-      )}
+          {user && (
+            <NavLink className="hover:text-orange-400 transition" to="/modules">
+              modules
+            </NavLink>
+          )}
 
-      {/* if logged in show modules link */}
-      {user && (
-        <NavLink className="hover:underline" to="/modules">
-          modules
-        </NavLink>
-      )}
+          {!user && (
+            <NavLink className="hover:text-orange-400 transition" to="/modules">
+              modules
+            </NavLink>
+          )}
+        </div>
 
-      {/* logout button when logged in */}
-      {user && (
-        <NavLink
-          className="hover:underline"
-          to="/"
-          onClick={() => {
-            logOut(); // clears user + token
-          }}
-        >
-          logout
-        </NavLink>
-      )}
+        {/* right side — logout */}
+        {user && (
+          <button
+            onClick={logOut}
+            className="px-4 py-1.5 rounded-full bg-orange-500 text-slate-900 font-semibold hover:bg-orange-400 transition"
+          >
+            logout
+          </button>
+        )}
+      </div>
     </nav>
   );
 }

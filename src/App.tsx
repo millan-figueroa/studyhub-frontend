@@ -4,6 +4,7 @@ import ModulesPage from "./pages/ModulesPage"; // this is my modules dashboard
 import Navbar from "./components/Navbar";
 import ModuleDetailsPage from "./pages/ModuleDetailsPage"; // single module page
 import AuthPage from "./pages/AuthPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
 
         {/* modules dashboard (list of all modules user created) */}
         <Route path="/modules" element={<ModulesPage />} />
+
+        {/* user/ account info */}
+        <Route path="/profile" element={<ProfilePage />} />
 
         {/* module details page with tasks inside it */}
         <Route path="/modules/:moduleId" element={<ModuleDetailsPage />} />

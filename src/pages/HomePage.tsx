@@ -65,7 +65,7 @@ function HomePage() {
         <div className="flex gap-4 flex-wrap">
           <Link
             to="/modules"
-            className="px-6 py-2 rounded-full bg-sky-400 text-slate-900 font-semibold hover:bg-sky-300 transition"
+            className="px-6 py-2 rounded-full bg-orange-400 text-slate-900 font-semibold hover:bg-orange-300 transition"
           >
             view modules
           </Link>
