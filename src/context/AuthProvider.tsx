@@ -89,8 +89,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setUser(res.data.user);
 
       // also saving both to localstorage so login stays after a refresh
-      localStorage.setItem("token", JSON.stringify(res.data.token));
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", res.data.user);
     } catch (error) {
       // show error in console so i know what went wrong
       console.error(error);
