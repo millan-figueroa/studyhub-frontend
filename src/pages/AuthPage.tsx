@@ -57,21 +57,17 @@ function AuthPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // clear any old error message
       setError("");
       setLoading(true);
 
-      // api call here to login the user
       await auth?.logIn(email, password);
-      navigate("/modules");
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // redirect to homepage after login
+      navigate("/");
     } catch (error: any) {
-      // log error to dev tools
       console.error(error.message);
       setError(error.message);
     } finally {
-      // turn off loading so button is clickable again
       setLoading(false);
     }
   };

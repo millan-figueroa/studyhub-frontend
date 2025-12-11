@@ -25,7 +25,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
         {/* Anki decks library */}
-        <Route path="/profile" element={<AnkiLibrary />} />
+        <Route path="/library" element={<AnkiLibrary />} />
 
         {/* module details page with tasks inside it */}
         <Route path="/modules/:moduleId" element={<ModuleDetailsPage />} />

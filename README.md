@@ -159,6 +159,7 @@ CORS errors
 
 - Update username, email, or password
 - Add optional avatar or display preferences
+- Profile stats dashboard
 
 ### Search & Filtering
 

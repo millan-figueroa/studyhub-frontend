@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   // minimal navbar if auth not ready
   if (!auth) {
@@ -43,7 +45,10 @@ export default function NavBar() {
 
         {/* logout all the way on the right */}
         <button
-          onClick={logOut}
+          onClick={() => {
+            logOut();
+            navigate("/");
+          }}
           className="ml-auto px-3 py-1 rounded-full bg-orange-500 text-slate-900 font-semibold hover:bg-orange-400 transition text-xs"
         >
           logout

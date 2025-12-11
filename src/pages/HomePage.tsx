@@ -9,7 +9,7 @@ function HomePage() {
   // not logged in → landing page
   if (!user) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-slate-900 px-4">
+      <div className="min-h-[calc(100vh-64px)] flex items-start justify-center bg-slate-900 px-4 pt-20">
         <div className="max-w-lg w-full bg-slate-800/80 rounded-2xl shadow-2xl p-8 text-slate-100">
           <h1 className="text-3xl font-bold mb-2">StudyHub</h1>
           <p className="text-slate-400 mb-6">
@@ -39,7 +39,7 @@ function HomePage() {
 
   // logged in → dashboard
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-slate-900 px-4">
+    <div className="min-h-[calc(100vh-64px)] flex items-start justify-center bg-slate-900 px-4 pt-20">
       <div className="max-w-2xl w-full bg-slate-800/80 rounded-2xl shadow-2xl p-8 text-slate-100">
         <h1 className="text-3xl font-bold mb-2">
           welcome back{user.username ? `, ${user.username}` : ""} 👋
