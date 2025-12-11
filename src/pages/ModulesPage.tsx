@@ -14,6 +14,11 @@ function ModulesPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  // edit state for updating a module inline
+  const [editingId, setEditingId] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+
   // this runs one time when the page loads grabs all modules
   useEffect(() => {
     async function fetchModules() {
@@ -46,6 +51,38 @@ function ModulesPage() {
       setLoading(false); // stop loading
       setName(""); // clear form
       setDescription(""); // clear form
+    }
+  }
+
+  // >>>> UPDATE MODULE <<<<
+  async function handleUpdateModule(e: any) {
+    e.preventDefault();
+
+    try {
+      setLoading(true); // waiting on backend
+      const res = await apiClient.put(`/api/modules/${editingId}`, {
+        name: editName,
+        description: editDescription,
+      }); // update module
+
+      // update module in state list
+      setModules((prev) =>
+        prev.map((m) =>
+          m._id === editingId
+            ? { ...m, name: res.data.name, description: res.data.description }
+            : m
+        )
+      );
+
+      // clear edit state
+      setEditingId("");
+      setEditName("");
+      setEditDescription("");
+    } catch (error: any) {
+      console.error(error); // see what went wrong
+      setError(error.message); // show error to user
+    } finally {
+      setLoading(false); // stop loading
     }
   }
 
@@ -82,10 +119,49 @@ function ModulesPage() {
         {modules &&
           modules.map((module) => (
             <div key={module._id}>
-              <div>{module.name}</div>
-              <div>{module.description}</div>
-              {/* link to the details page for this module */}
-              <Link to={`/modules/${module._id}`}>See Module</Link>
+              {editingId === module._id ? (
+                // edit mode
+                <form onSubmit={handleUpdateModule}>
+                  <input
+                    type="text"
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={editDescription}
+                    onChange={(e) => setEditDescription(e.target.value)}
+                  />
+                  <button type="submit">save</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingId("");
+                      setEditName("");
+                      setEditDescription("");
+                    }}
+                  >
+                    cancel
+                  </button>
+                </form>
+              ) : (
+                // view mode
+                <>
+                  <div>{module.name}</div>
+                  <div>{module.description}</div>
+                  <Link to={`/modules/${module._id}`}>See Module</Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingId(module._id);
+                      setEditName(module.name);
+                      setEditDescription(module.description);
+                    }}
+                  >
+                    edit
+                  </button>
+                </>
+              )}
             </div>
           ))}
       </div>

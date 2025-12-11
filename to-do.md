@@ -73,12 +73,12 @@
   - [x] Show title, description, status for each task
   - [x] Status dropdown or buttons
     - [x] On change, call `PUT /api/tasks/:taskId` to update status
-- [ ] Add new task form (component in `/src/components`, used in `ProjectDetailsPage.tsx`)
-  - [ ] Call `POST /api/modules/:moduleId/tasks`
-  - [ ] Refresh tasks list on success
-- [ ] Delete task
-  - [ ] Button to call `DELETE /api/tasks/:taskId`
-  - [ ] Remove task from UI without full page reload
+- [ ] Add new task form (component in `/src/ components`, used in `ProjectDetailsPage.tsx`) \*\* revisit
+  - [x] Call `POST /api/modules/:moduleId/tasks`
+  - [x] Refresh tasks list on success
+- [x] Delete task
+  - [x] Button to call `DELETE /api/tasks/:taskId`
+  - [x] Remove task from UI without full page reload
 
 ---
 
