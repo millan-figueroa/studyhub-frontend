@@ -90,6 +90,18 @@ function ModuleDetailsPage() {
     }
   }
 
+  // >>> DELETE TASK <<<
+  async function deleteTask(taskId: string) {
+    try {
+      // delete task in backend
+      await apiClient.delete(`/api/tasks/${taskId}`);
+      // remove it from state
+      setTasks((prev) => prev.filter((task) => task._id !== taskId));
+    } catch (error) {
+      console.error(error); // see what went wrong
+    }
+  }
+
   // show loading if waiting on backend
   if (loading) return <div>loading...</div>;
 
@@ -122,6 +134,8 @@ function ModuleDetailsPage() {
               <option value="in-progress">in-progress</option>
               <option value="done">done</option>
             </select>
+
+            <button onClick={() => deleteTask(task._id)}>delete</button>
           </div>
         ))}
       </div>

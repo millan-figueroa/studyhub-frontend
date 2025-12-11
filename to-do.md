@@ -51,13 +51,13 @@
 
 ## 10. Frontend – Dashboard (modules)
 
-- [ ] Modules dashboard page (`ProjectsPage.tsx` at route `/modules`)
-  - [ ] On mount, fetch `GET /api/modules` with `Authorization` header using `api.ts`
-  - [ ] Display list of modules owned by the logged-in user
-  - [ ] Link each module to `/modules/:moduleId` (`ProjectDetailsPage.tsx`)
-- [ ] Add new module form (component in `/src/components`, used in `ProjectsPage.tsx`)
-  - [ ] Call `POST /api/modules`
-  - [ ] Refresh module list on success
+- [x] Modules dashboard page (`ProjectsPage.tsx` at route `/modules`)
+  - [x] On mount, fetch `GET /api/modules` with `Authorization` header using `api.ts`
+  - [x] Display list of modules owned by the logged-in user
+  - [x] Link each module to `/modules/:moduleId` (`ProjectDetailsPage.tsx`)
+- [x] Add new module form (component in `/src/components`, used in `ProjectsPage.tsx`)
+  - [x] Call `POST /api/modules`
+  - [x] Refresh module list on success
 - [ ] Optional module actions
   - [ ] Edit module name/description (`PUT /api/modules/:id`)
   - [ ] Delete module (`DELETE /api/modules/:id`) and remove from UI
@@ -66,13 +66,13 @@
 
 ## 11. Frontend – Module Detail & Tasks
 
-- [ ] Module detail page (`ProjectDetailsPage.tsx` at route `/modules/:moduleId`)
-  - [ ] Fetch module info (`GET /api/modules/:id`)
-  - [ ] Fetch tasks for module (`GET /api/modules/:moduleId/tasks`)
-- [ ] Display tasks list
-  - [ ] Show title, description, status for each task
-  - [ ] Status dropdown or buttons
-    - [ ] On change, call `PUT /api/tasks/:taskId` to update status
+- [x] Module detail page (`ProjectDetailsPage.tsx` at route `/modules/:moduleId`)
+  - [x] Fetch module info (`GET /api/modules/:id`)
+  - [x] Fetch tasks for module (`GET /api/modules/:moduleId/tasks`)
+- [x] Display tasks list
+  - [x] Show title, description, status for each task
+  - [x] Status dropdown or buttons
+    - [x] On change, call `PUT /api/tasks/:taskId` to update status
 - [ ] Add new task form (component in `/src/components`, used in `ProjectDetailsPage.tsx`)
   - [ ] Call `POST /api/modules/:moduleId/tasks`
   - [ ] Refresh tasks list on success
