@@ -126,7 +126,7 @@ function ModulesPage() {
               name="module-name"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+              className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400 focus:border-orange-400"
             />
           </div>
 
@@ -142,7 +142,7 @@ function ModulesPage() {
               name="module-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+              className="bg-slate-900/80 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-orange-400 focus:border-orange-400"
             />
           </div>
 
