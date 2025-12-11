@@ -18,3 +18,8 @@ export interface Task {
     _id: string;
     status: string;
 }
+
+export type Status = "todo" | "in-progress" | "done";
+export interface TasksDashboardProps {
+    projectId: string;
+}

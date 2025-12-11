@@ -1,15 +1,13 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:3001",
 });
 
-// interceptor for protected routes
+// add token to every request
 apiClient.interceptors.request.use((config) => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-        const token = JSON.parse(storedToken);
-        config.headers = config.headers || {};
+    const token = localStorage.getItem("token"); // or wherever you store it
+    if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
