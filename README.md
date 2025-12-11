@@ -44,9 +44,9 @@ Users track task status (To Do > In Progress > Done) and use the tool during our
 ### Frontend
 
 - React (Vite)
+- Typescript
 - React Router
-- Context API
-- Axios
+- Tailwind
 
 ### Deployment
 
@@ -118,23 +118,14 @@ Open a browser and navigate to http://localhost:5173
 
 I ran into a debugging challenge where my backend enum in taskSchema.js expected values like "To Do", while my frontend in ModuleDetailsPage.tsx was sending "todo".
 This small mismatch caused a 500 error and taught me how strict Mongoose enums are — and how important it is to keep backend and frontend data contracts aligned.
+.
 
-## 2. Keeping Frontend State in Sync With CRUD Operations
-
-Even when my backend functions worked, the UI sometimes didn’t update because I wasn’t correctly updating state in React.
-I had to refine my map() and filter() patterns across files like ModulesPage.tsx and ModuleDetailsPage.tsx to ensure the UI always reflected the latest backend changes.
-
-## 3. Deployment Issues Breaking the Frontend
+## 2. Deployment Issues Breaking the Frontend
 
 Although everything worked locally, deploying introduced new challenges:
 
-mismatched API base URLs
-
-environment variable issues
-
-/api route differences
-
-CORS errors
+I changed my .env vars to deploy static site and it broke my CRUD - mismatched API base URLs? Other possible culprits - environment variable issues, /api route differences,
+CORS errors, Axios/fetch stopped adding Authorization header
 
 ### These issues helped me understand how different deployment environments can behave from local development, especially in full-stack apps.
 
@@ -166,9 +157,9 @@ CORS errors
 - Search modules or tasks by keywords
 - Filter tasks by status, date, or priority
 
-### Light/Dark Mode Toggle
+## Anki Deck Library
 
-- Add a UI theme switch for accessibility and personalization
+The Anki Deck Library lets users upload and store their own flashcard decks directly in the app. It creates a shared space where learners can organize their study materials and access custom decks anytime.
 
 ### Priority Levels
 
@@ -195,7 +186,3 @@ CORS errors
 
 - Better mobile layout
 - Optional swipe gestures for marking tasks complete
-
-## Anki Deck Library
-
-The Anki Deck Library lets users upload and store their own flashcard decks directly in the app. It creates a shared space where learners can organize their study materials and access custom decks anytime.
