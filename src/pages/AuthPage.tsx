@@ -73,7 +73,7 @@ function AuthPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-slate-900 px-4">
+    <div className="min-h-[calc(100vh-64px)] flex items-start pt-20 justify-center bg-slate-900 px-4">
       <div className="w-full max-w-md bg-slate-800/80 border border-slate-700 rounded-2xl shadow-2xl p-8 text-slate-100">
         <h1 className="text-center text-2xl font-bold mb-2">
           track your studies

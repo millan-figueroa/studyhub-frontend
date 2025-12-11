@@ -12,12 +12,15 @@ export interface Module {
     user: string; // owner id
 }
 
-export interface Task {
+export type Task = {
+    _id: string;
     title: string;
     description: string;
-    _id: string;
     status: string;
-}
+    dueDate?: string;
+};
+
+
 
 export interface Tasks {
     _id: string;
@@ -28,5 +31,16 @@ export interface Tasks {
 
 export type Status = "todo" | "in-progress" | "done";
 export interface TasksDashboardProps {
-    projectId: string;
+    moduleId: string;
+}
+
+export interface TaskListProp {
+    tasks: Tasks[];
+    editTask: (
+        id: string,
+        name: string,
+        description: string,
+        status: Status
+    ) => void;
+    deleteTask: (id: string) => void;
 }
