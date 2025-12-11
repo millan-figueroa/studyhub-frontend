@@ -22,7 +22,8 @@ function AuthPage() {
   const navigate = useNavigate();
 
   // >>> REGISTER USER <<<
-  const handleRegister = async () => {
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       // clearing out any old error
       setError("");

@@ -1,4 +1,8 @@
-import axios from "axios"; export const apiClient = axios.create({ baseURL: import.meta.env.VITE_BACKEND_URL, });
+import axios from "axios";
+
+export const apiClient = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+});
 
 // interceptor for protected routes
 // apiClient.interceptors.request.use((config) => {
