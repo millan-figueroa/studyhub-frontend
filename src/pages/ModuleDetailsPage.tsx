@@ -8,13 +8,16 @@ function ModuleDetailsPage() {
   const [moduleData, setModuleData] = useState<Module | null>(null);
   // holds all tasks for this module
   const [tasks, setTasks] = useState<Task[]>([]);
-  // loading and error states
+  // loading + error states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  // form inputs for new task
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
 
   const { moduleId } = useParams();
 
-  // gets module details when page loads or moduleId changes
+  // gets module details + tasks when the page loads or when moduleId changes
   useEffect(() => {
     async function fetchModuleDetails() {
       try {
@@ -29,7 +32,6 @@ function ModuleDetailsPage() {
         setLoading(false); // stop loading
       }
     }
-
     fetchModuleDetails();
   }, [moduleId]);
 
@@ -44,9 +46,30 @@ function ModuleDetailsPage() {
         console.error(error); // see what went wrong
       }
     }
-
     fetchModuleTasks();
   }, [moduleId]);
+
+  // >>> CREATE TASK <<<
+  async function createTask(e: any) {
+    e.preventDefault(); // stop page reload
+
+    try {
+      // hit backend to make a new task
+      const res = await apiClient.post(`/api/modules/${moduleId}/tasks`, {
+        title: taskTitle,
+        description: taskDescription,
+      });
+
+      // add new task to list
+      setTasks((prev) => [...prev, res.data]);
+
+      // clear form inputs
+      setTaskTitle("");
+      setTaskDescription("");
+    } catch (error) {
+      console.error(error); // see what went wrong
+    }
+  }
 
   // show loading if waiting on backend
   if (loading) return <div>loading...</div>;
@@ -75,6 +98,25 @@ function ModuleDetailsPage() {
           </div>
         ))}
       </div>
+
+      <h2>Create Task</h2>
+      <form onSubmit={createTask}>
+        <label>Title:</label>
+        <input
+          type="text"
+          value={taskTitle}
+          onChange={(e) => setTaskTitle(e.target.value)}
+        />
+
+        <label>Description:</label>
+        <input
+          type="text"
+          value={taskDescription}
+          onChange={(e) => setTaskDescription(e.target.value)}
+        />
+
+        <input type="submit" value="Add Task" />
+      </form>
     </div>
   );
 }
