@@ -71,6 +71,25 @@ function ModuleDetailsPage() {
     }
   }
 
+  // >>> UPDATE TASK STATUS <<<
+  async function updateTaskStatus(taskId: string, newStatus: string) {
+    try {
+      // call backend to update task status
+      const res = await apiClient.put(`/api/tasks/${taskId}`, {
+        status: newStatus,
+      });
+
+      // update tasks in state with new status
+      setTasks((prev) =>
+        prev.map((task) =>
+          task._id === taskId ? { ...task, status: res.data.status } : task
+        )
+      );
+    } catch (error) {
+      console.error(error); // see what went wrong
+    }
+  }
+
   // show loading if waiting on backend
   if (loading) return <div>loading...</div>;
 
@@ -88,13 +107,21 @@ function ModuleDetailsPage() {
       </div>
 
       <h2>Tasks</h2>
-      {/* list all tasks for this module */}
       <div>
         {tasks.map((task) => (
           <div key={task._id}>
             <div>{task.title}</div>
             <div>{task.description}</div>
-            <div>{task.status}</div>
+
+            {/* status dropdown for this task */}
+            <select
+              value={task.status}
+              onChange={(e) => updateTaskStatus(task._id, e.target.value)}
+            >
+              <option value="todo">todo</option>
+              <option value="in-progress">in-progress</option>
+              <option value="done">done</option>
+            </select>
           </div>
         ))}
       </div>
