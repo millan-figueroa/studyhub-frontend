@@ -44,10 +44,7 @@ function HomePage() {
         <h1 className="text-3xl font-bold mb-2">
           welcome back{user.username ? `, ${user.username}` : ""} 👋
         </h1>
-        <p className="text-slate-400 mb-6">
-          jump into your study modules, add new tasks, and move your work from
-          “todo” to “done”.
-        </p>
+        <p className="text-slate-400 mb-6">today's tasks are waiting for you</p>
 
         {/* stats placeholders */}
         <div className="flex gap-4 flex-wrap mb-6">
