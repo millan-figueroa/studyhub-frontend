@@ -58,18 +58,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // >>> REGISTER USER <<<
   async function register(username: string, email: string, password: string) {
     try {
-      // sending the new user info to my backend register route
       const res = await apiClient.post("/api/users/register", {
         username,
         email,
         password,
       });
-
-      // just logging what backend sends so i can see it
       console.log(res.data);
-    } catch (error) {
-      // shows the error in console if register fails
-      console.error(error);
+    } catch (error: any) {
+      console.error("register error:", error.response?.data || error.message);
     }
   }
 
