@@ -1,9 +1,9 @@
-# StudyHub – Collaborative Study Planner
+# 🐱‍💻 StudyHub – Collaborative Study Planner
 
-StudyHub is a MERN-stack web application designed to help my classmates and me stay organized during our post-cohort review sessions.  
-Admins can create **Modules** (like “Backend Review” or “React Deep Dive”), and inside each module they can create **Study Tasks**—assignments, readings, practice problems, or group study sessions.
+StudyHub is a MERN-stack web application designed to help us stay organized during our post-cohort review sessions. <br>
+Admins can create **Modules** (like “Backend Review” or “React Deep Dive”), and inside each module they can create **Study Tasks**—assignments, readings, practice problems, or group study sessions.<br>
 
-Users track task status (To Do → In Progress → Done) and use the tool during our twice-weekly meetups to stay aligned and accountable.
+Users track task status (To Do > In Progress > Done) and use the tool during our twice-weekly meetups to stay aligned and accountable.
 
 ---
 
@@ -22,15 +22,10 @@ Users track task status (To Do → In Progress → Done) and use the tool during
 
 ### Planned Enhancements
 
-- Invite other users to collaborate on a module
+- Add Github Authentication
 - Progress bar for module completion
 - Role-based permissions (only admins can create modules)
-
-### Additional Stretch Features
-
-- Pomodoro timer
 - Calendar integration
-- Reminder system
 
 ---
 
